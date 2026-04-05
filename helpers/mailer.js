@@ -8,12 +8,15 @@ const sendOTPEmail = async (to, otp) => {
     // ✅ SendGrid SMTP transport
     const transporter = nodemailer.createTransport({
       host: "smtp.sendgrid.net",
-      port: 587,
-      secure: false,
+      port: 465, // ← change this
+      secure: true, // ← change this to true
       auth: {
-        user: "apikey", // MUST be exactly "apikey"
+        user: "apikey",
         pass: SENDGRID_API_KEY,
       },
+      connectionTimeout: 10000,
+      greetingTimeout: 10000,
+      socketTimeout: 10000,
     });
 
     // ✅ Send email
@@ -77,7 +80,6 @@ const sendOTPEmail = async (to, otp) => {
 
     console.log("✅ OTP email sent:", info.messageId);
     return { success: true, message: "OTP sent successfully" };
-
   } catch (error) {
     console.error("❌ SendGrid error:", error);
     return {
