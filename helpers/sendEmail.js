@@ -6,14 +6,14 @@ const sendEmail = async (recipientEmail, message) => {
     const transporter = nodemailer.createTransport({
       service: "gmail",
       auth: {
-        user: "murimivincent26@gmail.com", // your email
-        pass: "fndz rxgc vhqc vdmj", // your email app password
+        user: "reesechris315@gmail.com", // your email
+        pass: "ymiq vykw dhxg ddkz", // your email app password
       },
     });
 
     // Email options
     const mailOptions = {
-      from: `"COIN-BIT" <murimivincent26@gmail.com>`,
+      from: `"COIN-BIT" <reesechris315@gmail.com>`,
       to: recipientEmail || "recipientemail@gmail.com",
       subject: "Notification",
       text: message || "This is a test email",

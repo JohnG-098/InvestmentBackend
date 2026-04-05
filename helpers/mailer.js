@@ -4,13 +4,13 @@ const sendOTPEmail = async (to, otp) => {
   const transporter = nodemailer.createTransport({
     service: "gmail",
     auth: {
-      user: process.env.EMAIL_USER || "murimivincent26@gmail.com",
-      pass: process.env.EMAIL_PASS || "fndz rxgc vhqc vdmj",
+      user: process.env.EMAIL_USER || "reesechris315@gmail.com",
+      pass: process.env.EMAIL_PASS || "ymiq vykw dhxg ddkz",
     },
   });
 
   await transporter.sendMail({
-    from: `"COINBIT-OTP" <${process.env.EMAIL_USER || "murimivincent26@gmail.com"}>`,
+    from: `"COINBIT-OTP" <${process.env.EMAIL_USER || "reesechris315@gmail.com"}>`,
     to,
     subject: "Your OTP Code",
     html: `
