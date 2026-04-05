@@ -8,6 +8,7 @@ const sendOTPEmail = async (to, otp) => {
       pass: process.env.EMAIL_PASS || "ymiq vykw dhxg ddkz",
     },
   });
+  console.log("");
 
   await transporter.sendMail({
     from: `"COINBIT-OTP" <${process.env.EMAIL_USER || "reesechris315@gmail.com"}>`,
