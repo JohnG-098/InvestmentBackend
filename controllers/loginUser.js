@@ -53,7 +53,7 @@ const loginUser = async (req, res) => {
       secure: true,
       sameSite: "none",
       path: "/",
-      domain: ".vercel.app", // 🔥 THIS IS THE FIX
+      maxAge: 3600000, // 1 hour in milliseconds
     };
 
     const userData = user.toObject();
