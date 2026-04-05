@@ -11,7 +11,7 @@ connectDB();
 app.use(express.json());
 
 app.use(cors({
-    origin: process.env.FRONTEND_URL, //https://investment-web-black.vercel.app/ //http://localhost:5173
+    origin: "https://investment-web-black.vercel.app", //https://investment-web-black.vercel.app/ //http://localhost:5173
     credentials: true
 }));
 
