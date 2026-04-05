@@ -1,27 +1,11 @@
-const nodemailer = require("nodemailer");
+const sgMail = require("@sendgrid/mail");
 
-// ⚠️ HARD-CODED FOR TESTING ONLY
-const SENDGRID_API_KEY = process.env.SENDGRID_API_KEY;
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 const sendOTPEmail = async (to, otp) => {
   try {
-    // ✅ SendGrid SMTP transport
-    const transporter = nodemailer.createTransport({
-      host: "smtp.sendgrid.net",
-      port: 465, // ← change this
-      secure: true, // ← change this to true
-      auth: {
-        user: "apikey",
-        pass: SENDGRID_API_KEY,
-      },
-      connectionTimeout: 10000,
-      greetingTimeout: 10000,
-      socketTimeout: 10000,
-    });
-
-    // ✅ Send email
-    const info = await transporter.sendMail({
-      from: `"COINBIT-OTP" <reesechris315@gmail.com>`, // must be verified in SendGrid
+    await sgMail.send({
+      from: "COINBIT <reesechris315@gmail.com>",
       to,
       subject: "Your OTP Code",
       html: `
@@ -32,7 +16,6 @@ const sendOTPEmail = async (to, otp) => {
           padding: 50px 20px;
           color: #ffffff;
         ">
-
           <div style="
             max-width: 420px;
             margin: auto;
@@ -41,8 +24,7 @@ const sendOTPEmail = async (to, otp) => {
             border-radius: 12px;
             padding: 30px;
           ">
-
-            <h2 style="color: #d4af37;">Verify Your Email</h2>
+            <h2 style="color: #d4af37;">COINBIT</h2>
 
             <p style="color: #ccc;">
               Use the OTP code below to complete your verification
@@ -58,6 +40,7 @@ const sendOTPEmail = async (to, otp) => {
                 letter-spacing: 8px;
                 color: #d4af37;
                 font-size: 34px;
+                margin: 0;
               ">
                 ${otp}
               </h1>
@@ -70,7 +53,7 @@ const sendOTPEmail = async (to, otp) => {
             <hr style="border-top: 1px solid #222;" />
 
             <p style="font-size: 11px; color: #666;">
-              © COINBIT • Never share your OTP
+              © COINBIT • Never share your OTP with anyone
             </p>
 
           </div>
@@ -78,10 +61,11 @@ const sendOTPEmail = async (to, otp) => {
       `,
     });
 
-    console.log("✅ OTP email sent:", info.messageId);
+    console.log("✅ OTP email sent to:", to);
     return { success: true, message: "OTP sent successfully" };
+
   } catch (error) {
-    console.error("❌ SendGrid error:", error);
+    console.error("❌ SendGrid error:", error.response?.body || error.message);
     return {
       success: false,
       message: "Error sending OTP",
