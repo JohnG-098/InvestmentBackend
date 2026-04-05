@@ -50,23 +50,20 @@ const loginUser = async (req, res) => {
     // ✅ COOKIE OPTIONS (VERY IMPORTANT)
     const tokenOption = {
       httpOnly: true,
-      secure: true,          // MUST be true on Vercel (HTTPS)
-      sameSite: "none",      // REQUIRED for cross-site
+      secure: true,
+      sameSite: "none",
       path: "/",
+      domain: ".vercel.app", // 🔥 THIS IS THE FIX
     };
 
     const userData = user.toObject();
     delete userData.password;
 
-    res
-      .cookie("token", token, tokenOption)
-      .status(200)
-      .json({
-        success: true,
-        message: "Login Successful",
-        data: userData,
-      });
-
+    res.cookie("token", token, tokenOption).status(200).json({
+      success: true,
+      message: "Login Successful",
+      data: userData,
+    });
   } catch (error) {
     console.error("Login error:", error);
 
