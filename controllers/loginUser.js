@@ -60,8 +60,9 @@ const loginUser = async (req, res) => {
 
     const tokenOption = {
       httpOnly: true,
-      secure: true, // ✅ change this for local dev
+      secure: true,
       sameSite: "none",
+      path: "/",
     };
 
     // ✅ Remove password before sending user

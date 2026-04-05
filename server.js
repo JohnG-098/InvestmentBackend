@@ -8,11 +8,14 @@ const cors = require("cors");
 const app = express();
 
 connectDB();
+
+app.set("trust proxy", 1);
+
 app.use(express.json());
 
 app.use(cors({
-    origin: "https://investment-web-black.vercel.app", //https://investment-web-black.vercel.app/ //http://localhost:5173
-    credentials: true
+  origin: "https://investment-web-black.vercel.app",
+  credentials: true
 }));
 
 app.use(cookieParser());
