@@ -48,8 +48,15 @@ const investSchema = new mongoose.Schema({
     type: Date,
     required: true,
   },
+  lastCalculatedAt: {
+    type: Date,
+    default: Date.now,
+  },
   
-});
+  
+},
+{  timestamps: true,}
+);
 const Investment = mongoose.model("Investment", investSchema);
 module.exports = Investment;
 //module.exports = mongoose.model("Investments", investSchema);

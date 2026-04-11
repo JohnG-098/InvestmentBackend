@@ -3,6 +3,7 @@ const dotenv = require("dotenv");
 const connectDB = require("./helpers/db");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
+require("./scheduler/investmentScheduler");
 
 dotenv.config();
 
@@ -15,10 +16,10 @@ app.set("trust proxy", 1);
 
 app.use(express.json());
 
-// ✅ CORS CONFIG (EXACT FRONTEND URL)
+// ✅ CORS CONFIG (EXACT FRONTEND URL) // https://investment-web-black.vercel.app
 app.use(
   cors({
-    origin: "https://investment-web-black.vercel.app", // EXACT frontend URL
+    origin: "https://investment-web-black.vercel.app", // http://localhost:5173
     credentials: true,
   })
 );
@@ -27,6 +28,7 @@ app.use(cookieParser());
 
 // ROUTES
 app.use("/api/user", require("./routes/userRoutes"));
+app.use("/api/admin", require("./routes/adminRoutes"));
 
 app.get("/api", (req, res) => {
   res.json({ message: "Hello from backend" });
